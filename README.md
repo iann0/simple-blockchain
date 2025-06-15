@@ -28,14 +28,19 @@ run Blockchain.py
 The API will be available on http://localhost:5000
 
 ---
-Credits
+#Credits
 
 Inspired by Daniel van Flymen's tutorial on building a blockchain in Python.
 
 
 ---
 
-License
+#License
 
 This project is open source and available under the MIT License.
+
+---
+#Future Additions 
+
+-Front-end UI
 ---
