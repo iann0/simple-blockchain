@@ -19,4 +19,11 @@ This is a minimal implementation of a blockchain in Python, featuring mining, tr
 Install dependencies:
 
 ```bash
-pip install flask flask-cors
+
+
+
+#How to run
+
+start server locally
+run Blockchain.py
+The API will be available on http://localhost:5000
