@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Blockchain UI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+    button, input, textarea {
+      padding: 0.6rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      font-size: 1rem;
+    }
+    #chainOutput {
+      white-space: pre-wrap;
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      height: 300px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Blockchain UI</h1>
+
+  <h3>Create Transaction</h3>
+  <input id="sender" placeholder="Sender">
+  <input id="recipient" placeholder="Recipient">
+  <input id="amount" type="number" placeholder="Amount">
+  <button onclick="createTransaction()">Send Transaction</button>
+  <div id="txResult"></div>
+
+  <hr>
+
+  <button onclick="mineBlock()">⛏️ Mine Block</button>
+  <div id="mineResult"></div>
+
+  <hr>
+
+  <button onclick="getChain()">📜 View Full Chain</button>
+  <div id="chainOutput"></div>
+
+  <script>
+    const API_URL = "http://127.0.0.1:5000";
+
+    async function createTransaction() {
+      const sender = document.getElementById("sender").value;
+      const recipient = document.getElementById("recipient").value;
+      const amount = document.getElementById("amount").value;
+
+      const res = await fetch(`${API_URL}/transactions/new`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ sender, recipient, amount })
+      });
+
+      const data = await res.json();
+      document.getElementById("txResult").textContent = data.message || res.statusText;
+    }
+
+    async function mineBlock() {
+      const res = await fetch(`${API_URL}/mine`);
+      const data = await res.json();
+      document.getElementById("mineResult").textContent = data.message || res.statusText;
+    }
+
+    async function getChain() {
+      const res = await fetch(`${API_URL}/chain`);
+      const data = await res.json();
+      document.getElementById("chainOutput").textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
